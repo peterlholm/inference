@@ -1,0 +1,5 @@
+# this include extra module for devellopment
+pip 
+opencv-python
+#matplotlib
+#opencv-contrib-python

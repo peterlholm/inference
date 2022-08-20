@@ -1,0 +1,16 @@
+pip>=20.3
+
+
+#requests
+#pillow
+numpy
+tensorflow
+#scikit-learn
+#matplotlib
+
+opencv-python-headless
+#opencv-phython
+
+pylint
+
+#open3d
