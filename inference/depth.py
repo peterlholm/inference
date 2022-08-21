@@ -1,14 +1,14 @@
 "Inference depth calulation"
 import numpy as np
 import cv2
-from config import HEIGHT_DB_FILE
+from config import HEIGHT_DB_FILE, _DEBUG
 
-_DEBUG = False
+#_DEBUG = False
 
-def nnDepth(depthfolder, unwrap, basecount):
+def nn_depth(depthoutfolder, unwrap, basecount):
     "Convert phase to height"
-    BASEFILE = HEIGHT_DB_FILE
-    DBase = np.load(BASEFILE)
+    #BASEFILE = HEIGHT_DB_FILE
+    DBase = np.load(HEIGHT_DB_FILE)
     depth = np.zeros((160, 160), dtype=np.float64)
     zee=0
     for i in range(160): #adressing edge noise, can not be explained yet!!!!
@@ -32,5 +32,5 @@ def nnDepth(depthfolder, unwrap, basecount):
     im_depth = depth
     if _DEBUG:
         print('nndepthrange=', np.ptp(depth), np.max(depth), np.min(depth) )
-        cv2.imwrite(str(depthfolder / 'depth.png'), im_depth)
-    return(im_depth)
+        cv2.imwrite(str(depthoutfolder / 'depth.png'), im_depth)
+    return im_depth
