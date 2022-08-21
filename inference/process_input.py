@@ -6,11 +6,11 @@ from shutil import rmtree, copytree
 import numpy as np
 import cv2
 
-from config import H_MODEL_FILE, L_MODEL_FILE, _DEBUG
-from utils import make_grayscale, resize
-from masking import mask
-from depth import nnDepth
-from pointcloud import nngenerate_pointcloud
+from .config import H_MODEL_FILE, L_MODEL_FILE, _DEBUG
+from .utils import make_grayscale, resize
+from .masking import mask
+from .depth import nn_depth
+from .pointcloud import nngenerate_pointcloud
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1' # more logging
@@ -73,7 +73,7 @@ def process(folder, outfolder=None):
     if _DEBUG:
         cv2.imwrite(str(outfolder / 'unwrap.png'), unwrapdata)
         cv2.imwrite(str(outfolder / 'k.png'), k_img)
-    nndepth =nnDepth(depthoutfolder=outfolder, unwrap= .50* unwrapdata,basecount= 50)
+    nndepth =nn_depth(depthoutfolder=outfolder, unwrap= .50* unwrapdata,basecount= 50)
     nngenerate_pointcloud(folder / 'image8.png', outfolder / 'mask.png', nndepth, outfolder / 'pointcloud.ply')
 
 ########### testing ############

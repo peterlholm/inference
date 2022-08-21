@@ -1,7 +1,7 @@
 "Inference depth calulation"
 import numpy as np
 import cv2
-from config import HEIGHT_DB_FILE, _DEBUG
+from .config import HEIGHT_DB_FILE, _DEBUG
 
 #_DEBUG = False
 
