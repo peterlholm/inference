@@ -2,8 +2,8 @@
 #from pathlib import Path
 import numpy as np
 import cv2
-from .config import HEIGHT, WIDTH, _DEBUG
-from .utils import make_grayscale
+from config import HEIGHT, WIDTH, _DEBUG
+from utils import make_grayscale
 
 #_DEBUG = False
 

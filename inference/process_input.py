@@ -6,11 +6,11 @@ from shutil import rmtree, copytree
 import numpy as np
 import cv2
 
-from .config import H_MODEL_FILE, L_MODEL_FILE, _DEBUG
-from .utils import make_grayscale, resize
-from .masking import mask
-from .depth import nn_depth
-from .pointcloud import nngenerate_pointcloud
+from config import H_MODEL_FILE, L_MODEL_FILE, _DEBUG
+from utils import make_grayscale, resize
+from masking import mask
+from depth import nn_depth
+from pointcloud import nngenerate_pointcloud
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1' # more logging
@@ -97,22 +97,22 @@ def process_testimage():
         print("Elapsed time:", end_time-st_time, "seconds")
     print("Data processed")
 
-def process_image_set():
+def process_image_set(folder):
     "process a image folder set"
     tmp_folder = Path(__file__).parent.parent / 'tmp'
     rmtree(tmp_folder, ignore_errors=True)
     tmp_folder.mkdir()
-    testset_folder = Path(__file__).parent.parent / 'testdata/testtarget'
-    folders = sorted(testset_folder.glob('*'))
+    folders = sorted(folder.glob('*'))
     if _PERF:
         proc_st = time.process_time()
         st_time = time.time()
     for f in folders:
-        print(f)
-        copytree(f, tmp_folder / f.name)
-        # myoutfolder = tmp_folder / 'out'
-        # myoutfolder.mkdir()
-        process(tmp_folder / f.name)
+        if f.is_dir():
+            print(f)
+            copytree(f, tmp_folder / f.name)
+            # myoutfolder = tmp_folder / 'out'
+            # myoutfolder.mkdir()
+            process(tmp_folder / f.name)
     if _PERF:
         end_time = time.time()
         proc_end = time.process_time()
@@ -122,4 +122,6 @@ def process_image_set():
 
 if __name__=='__main__':
     #process_testimage()
-    process_image_set()
+    testset_folder = Path(__file__).parent.parent / 'testdata/testtarget'
+    testset_folder = Path(__file__).parent.parent / 'testdata/1cm_target_220830'
+    process_image_set(testset_folder)

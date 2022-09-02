@@ -2,7 +2,6 @@ pip>=20.3
 
 
 #requests
-#pillow
 numpy
 tensorflow
 #scikit-learn
@@ -11,6 +10,7 @@ tensorflow
 opencv-python-headless
 #opencv-phython
 
+pillow
 pylint
 
 #open3d
