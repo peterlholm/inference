@@ -1,5 +1,6 @@
 # this include extra module for devellopment
 pip 
 opencv-python
-#matplotlib
+matplotlib
+open3d
 #opencv-contrib-python

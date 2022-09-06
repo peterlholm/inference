@@ -3,14 +3,17 @@ import os
 import time
 from pathlib import Path
 from shutil import rmtree, copytree
+from PIL import Image
 import numpy as np
 import cv2
 
-from config import H_MODEL_FILE, L_MODEL_FILE, _DEBUG
-from utils import make_grayscale, resize
-from masking import mask
-from depth import nn_depth
-from pointcloud import nngenerate_pointcloud
+from inference.config import H_MODEL_FILE, L_MODEL_FILE, _DEBUG
+from inference.utils import make_grayscale, resize
+from inference.masking import mask
+from inference.depth import nn_depth
+from inference.pointcloud import nngenerate_pointcloud
+
+#from filter.masks import addmask_to_picture
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1' # more logging
@@ -19,6 +22,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 #_DEBUG=True
 _PERF = True
+_FILTER = True
 
 TF_VERBOSE=1    # progress bar
 TF_VERBOSE=0    # silent
@@ -110,6 +114,15 @@ def process_image_set(folder):
         if f.is_dir():
             print(f)
             copytree(f, tmp_folder / f.name)
+            if _FILTER:
+                fil=tmp_folder / f.name / 'image0.png'
+                img = Image.open(fil)
+                img = addmask_to_picture(img)
+                img.save(fil)
+                for fil in ['image8.png','image9.png']:
+                    img = Image.open(tmp_folder / f.name / fil)
+                    img=addmask_to_picture(img, maskval=0)
+                    img.save(tmp_folder / f.name / fil)
             # myoutfolder = tmp_folder / 'out'
             # myoutfolder.mkdir()
             process(tmp_folder / f.name)
@@ -124,4 +137,5 @@ if __name__=='__main__':
     #process_testimage()
     testset_folder = Path(__file__).parent.parent / 'testdata/testtarget'
     testset_folder = Path(__file__).parent.parent / 'testdata/1cm_target_220830'
+    testset_folder = Path(__file__).parent.parent / 'testdata/test'
     process_image_set(testset_folder)
