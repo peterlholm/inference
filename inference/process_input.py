@@ -57,7 +57,7 @@ def process(folder, outfolder=None):
     #load_models()
     image0 = folder / 'image0.png'
     img = cv2.imread(str(image0)).astype(np.float32)
-    img = resize(img, 160, 160)
+    #img = resize(img, 160, 160)
     img = make_grayscale(img)
     if _DEBUG:
         cv2.imwrite(str(outfolder / 'gray.png'), img)

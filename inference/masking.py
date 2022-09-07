@@ -9,6 +9,8 @@ from inference.utils import make_grayscale
 
 def mask(folder, outfolder=None):
     "Create the inference masing files"
+    DIF_VAL=40
+    DIF_VAL=50
     if outfolder is None:
         outfolder = folder
     color = folder / 'image8.png'
@@ -25,7 +27,7 @@ def mask(folder, outfolder=None):
         cv2.imwrite(str(outfolder / 'diff_mask.png'), diff1)
     for i in range(HEIGHT):
         for j in range(WIDTH):
-            if (diff1[i,j]<40):
+            if (diff1[i,j]<DIF_VAL):
                 mymask[i,j]= True
     if _DEBUG:
         np.save( outfolder / 'mask.npy', mymask, allow_pickle=False)

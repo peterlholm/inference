@@ -12,18 +12,21 @@ from filter.img_utils import change_brightness_contrast
 _PERF = True
 _FILTER = False
 
-def process_testimage():
-    "process i image folder"
-    testfolder = Path(__file__).parent.parent / 'testdata/testtarget/render0'
-    tmp_folder = Path(__file__).parent.parent / 'tmp'
-    rmtree(tmp_folder, ignore_errors=True)
-    copytree(testfolder, tmp_folder)
-    myoutfolder = tmp_folder / 'out'
+BASE = Path(__file__).parent
+TESTDATA = BASE / 'testdata'
+TMP_FOLDER = BASE / 'tmp'
+
+def process_testimage(inputfolder):
+    "process one image folder"
+    #tmp_folder = Path(__file__).parent.parent / 'tmp'
+    rmtree(TMP_FOLDER, ignore_errors=True)
+    copytree(inputfolder, TMP_FOLDER)
+    myoutfolder = TMP_FOLDER / 'out'
     myoutfolder.mkdir()
     if _PERF:
         proc_st = time.process_time()
         st_time = time.time()
-    process(tmp_folder, myoutfolder)
+    process(TMP_FOLDER, myoutfolder)
     if _PERF:
         end_time = time.time()
         proc_end = time.process_time()
@@ -80,10 +83,11 @@ def process_image_set(folder):
     print("Data processed")
 
 if __name__=='__main__':
-    #process_testimage()
+    testfolder = BASE / 'testdata/testtarget/render0'
+    process_testimage(testfolder)
     testset_folder = Path(__file__).parent.parent / 'testdata/testtarget'
     testset_folder = Path(__file__).parent.parent / 'testdata/1cm_target_220830'
     testset_folder = Path(__file__).parent / 'testdata/kugle_220906'
     #process_image_set(testset_folder)
     test_folder = Path(__file__).parent / 'testdata/input/render0'
-    gen_image_set(test_folder)
+    #gen_image_set(test_folder)

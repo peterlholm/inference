@@ -50,5 +50,5 @@ def make_grayscale2(infile, outfile):
 def zoom(infile,outfile,zoom):
     img = Image.open(infile)
     newimg = img.resize((int(img.height*zoom)), int(img.width*zoom))
-    x = int(img.width*zoom)-
+    x = int(img.width*zoom)
     new2img = newimg.crop()
