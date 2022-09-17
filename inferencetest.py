@@ -83,7 +83,12 @@ def process_image_set(folder):
     print("Data processed")
 
 if __name__=='__main__':
-    testfolder = BASE / 'testdata/testtarget/render0'
+    #testfolder = BASE / 'testdata/testtarget/render0'
+    #testfolder = BASE / 'testdata/testtarget/render0flip'
+    #testfolder = BASE / 'testdata/kugle_220906/render10flip'
+    # testfolder = BASE / 'testdata/test/render4'
+    # testfolder = BASE / 'testdata/test/render4flip'
+    testfolder = BASE / 'testdata/zoom/render2flip'
     process_testimage(testfolder)
     testset_folder = Path(__file__).parent.parent / 'testdata/testtarget'
     testset_folder = Path(__file__).parent.parent / 'testdata/1cm_target_220830'

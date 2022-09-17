@@ -7,6 +7,12 @@ L_MODEL_FILE = MODEL_FOLDER / 'L_model.h5'
 
 HEIGHT_DB_FILE = MODEL_FOLDER / 'DDbase.npy'
 
+#MODEL_FOLDER2 = Path(__file__).parent.parent / 'models/model.dec'
+#H_MODEL_FILE = MODEL_FOLDER2 / 'H_model.h5'
+#L_MODEL_FILE = MODEL_FOLDER / 'L_model.h5'
+
+#HEIGHT_DB_FILE = MODEL_FOLDER.parent / 'DDbase.npy'
+
 HEIGHT = 160
 WIDTH = 160
 
